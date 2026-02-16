@@ -9,12 +9,12 @@ function Enter(){
 
     const now = new Date();
     
- 
-    if (/*now.getDate() < 20*/false){
+    const [day, hour, minute, second]=GetTimeLeft();
+    if (day>=7){
      button.innerHTML = "Game has not yet started";
 
     }else if(text=="User"){
-        window.location.href = "Danny/Day1/1.htm";
+        window.location.href = `Danny/Day${6-day}/1.htm`;
     }else{
         button.innerHTML = "Fail not good code";
     }

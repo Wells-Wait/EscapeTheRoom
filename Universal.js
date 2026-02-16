@@ -57,6 +57,7 @@ async function updateProgress(Name,Day,Puzzle, newValue){
 
 
 //clock
+const endDate = 18
 function addClockFormating(){
     RunClock()
     const clock = document.getElementById('Clock');
@@ -67,18 +68,55 @@ function addClockFormating(){
     clock.style.textAlign = "center";
 }
 function RunClock(){
-    const endDate = 26
+    
     const clock = document.getElementById('Clock');
     const now = new Date();
     clock.innerHTML= String(endDate - now.getDate()) + ":" + (24 - now.getHours()).toString().padStart(2, '0') + ":" + (60 - now.getMinutes()).toString().padStart(2, '0') + ":" +  (60 - now.getSeconds()).toString().padStart(2, '0');
-    if (endDate - now.getDate()>=7){
-        clock.innerHTML= "Starts in: "+String(endDate-7 - now.getDate()) + ":" + (24 - now.getHours()).toString().padStart(2, '0') + ":" + (60 - now.getMinutes()).toString().padStart(2, '0') + ":" +  (60 - now.getSeconds()).toString().padStart(2, '0');
+    if (endDate - now.getDate()>=6){
+        clock.innerHTML= "Starts in: "+String(endDate-6 - now.getDate()) + ":" + (24 - now.getHours()).toString().padStart(2, '0') + ":" + (60 - now.getMinutes()).toString().padStart(2, '0') + ":" +  (60 - now.getSeconds()).toString().padStart(2, '0');
 
     }
 
+
+}
+function GetTimeLeft(){
+    
+    const now = new Date();
+    
+    if (endDate - now.getDate()>=6){
+        return [7,0,0,0];
+
+    }
+return [endDate - now.getDate(),24 - now.getHours(),60 - now.getMinutes(),60 - now.getSeconds()];
 
 }
 
 
 addClockFormating()
 setInterval(RunClock, 1000);
+
+
+//navigation bar
+function addNavBarFormating(){
+const navBar = document.getElementById('navBar');
+const days =[document.getElementById('Day1NavBar'),document.getElementById('Day2NavBar'),document.getElementById('Day3NavBar'),
+    document.getElementById('Day4NavBar'),document.getElementById('Day5NavBar'),
+    document.getElementById('Day6NavBar')];
+navBar.style.color = "black";
+    navBar.style.borderBlockStyle = "double";
+    navBar.style.borderColor = "blue";
+    navBar.style.borderRadius = "10%";
+   navBar.style.textAlign = "center";
+   const [day, hour, minute, second]=GetTimeLeft()
+
+   for (let i =0; i<6; i++){
+    days[i].style.padding = "1%";
+    if ((5-i)<day){
+        days[i].style.display = "none";
+
+    }
+   }
+
+
+}
+addNavBarFormating()
