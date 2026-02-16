@@ -92,8 +92,7 @@ return [endDate - now.getDate(),24 - now.getHours(),60 - now.getMinutes(),60 - n
 }
 
 
-addClockFormating()
-setInterval(RunClock, 1000);
+
 
 
 //navigation bar
@@ -119,4 +118,9 @@ navBar.style.color = "black";
 
 
 }
+
+addClockFormating()
+setInterval(RunClock, 1000);
+
+
 addNavBarFormating()
