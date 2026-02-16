@@ -1,0 +1,21 @@
+H1 {
+    font-weight: 900;
+    text-align: center;
+    color: green;
+    font-size: xx-large;
+}
+
+p {
+    font-size: large;
+}
+
+ol {
+    padding: 20px;
+    background-color: rgb(187, 184, 184);
+    
+    border-color: black;
+    border-style: groove;
+}
+ol li {
+    font-size: large;
+}
