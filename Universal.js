@@ -4,8 +4,12 @@
 
 
 //github pull and push
+const endDate = 21
 
-const GITHUB_TOKEN="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"
+
+
+
+const GITHUB_TOKEN="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";
  async function pullProgress(Name,Day,Puzzle) {
  
     
@@ -22,9 +26,9 @@ const GITHUB_TOKEN="github_pat_11BDGRN5A0m9w55czrXA62_MmxpwyFT0WaWuXQZYucF5tg2ZB
 
     const data = await response.json();
     if (!data.content) {
-    return 0, 0, 0;
+    return [0, 0, 0];
 }
-    const actualText = atob(data.content);
+    const actualText = atob(data.content.replace(/\s/g, ''));
     const gameData = actualText.trim().split('\n').map(line => {
     return line.split(','); 
 });
@@ -34,7 +38,7 @@ const GITHUB_TOKEN="github_pat_11BDGRN5A0m9w55czrXA62_MmxpwyFT0WaWuXQZYucF5tg2ZB
 
 async function updateProgress(Name,Day,Puzzle, newValue){
     const url = `https://api.github.com/repos/Wells-Wait/EscapeTheRoom/contents/${Name}/${Name}.ESCAPE`;
-    const [current, sha, gameData] = await pullProgress(Name, Day, Puzzle)
+    const [current, sha, gameData] = await pullProgress(Name, Day, Puzzle);
 
     gameData[Day][Puzzle] = newValue;
     const updatedString = gameData.map(row => row.join(',')).join('\n');
@@ -57,7 +61,6 @@ async function updateProgress(Name,Day,Puzzle, newValue){
 
 
 //clock
-const endDate = 18
 function addClockFormating(){
     RunClock()
     const clock = document.getElementById('Clock');
@@ -91,6 +94,8 @@ return [endDate - now.getDate(),24 - now.getHours(),60 - now.getMinutes(),60 - n
 
 }
 
+addClockFormating()
+setInterval(RunClock, 1000);
 
 
 
@@ -119,8 +124,6 @@ navBar.style.color = "black";
 
 }
 
-addClockFormating()
-setInterval(RunClock, 1000);
 
 
 addNavBarFormating()
