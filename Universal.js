@@ -4,12 +4,12 @@
 
 
 //github pull and push
-const endDate = 21
+const endDate = 22
 
 
 
 
-const GITHUB_TOKEN="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";
+const GITHUB_TOKEN="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";
  async function pullProgress(Name,Day,Puzzle) {
  
     

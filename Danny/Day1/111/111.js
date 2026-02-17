@@ -48,13 +48,26 @@ function moveX(X){
 }
 function FoodCheck(){
     const food = document.getElementById('food');
+
     if ((x > fx-version) && (x < fx+version) && (y > fy-version)&&(y < fy+version)){
-food.style.opacity = "1";
-food.style.borderColor = "green";
-const Score = document.getElementById('Score');
-Score.innerHTML = String(5) + " of 4, game: "+progress;
-RePlaceFood();
-score+=1;
+        const Score = document.getElementById('Score');
+        food.style.opacity = "1";
+        food.style.borderColor = "green";
+        
+        score+=1;
+        Score.innerHTML =String(score) + "of 4, game: "+ String(version);
+
+        RePlaceFood();
+
+
+        if (score == 4){
+            updateProgress("Danny",0,1,version+1);
+            version+=1;
+            score=0;
+            if(version == 5 && score == 0){
+                setInterval(RePlaceFood, 7000);
+            }
+        }
 
     }else{
         food.style.borderColor = "black";
@@ -68,19 +81,21 @@ function RePlaceFood(){
     
     const food = document.getElementById('food');
     food.style.opacity = "1";
-    fx=Math.floor(Math.random() * (100));
+    fx=Math.floor(Math.random() * (80)+10);
 
-    fy=Math.floor(Math.random() * (100 ));
+    fy=Math.floor(Math.random() * (80 )+10);
     food.style.top = String(fy)+"%";
     food.style.left = String(fx)+"%";
-    if (version == 2){
+    
     setTimeout(() => {
-        food.style.opacity = "0.5";
+        if (version<=4){
+        food.style.opacity = String(1.0-version/4.0);
+        }else{
+           food.style.opacity = String(1.0-(version-4)/4.0); 
+        }
         
     }, 2000);
     
-    
-}
 
 
 }
@@ -91,7 +106,7 @@ async function CheckVersion(){
  
     const [progress, sha, gameData] = await pullProgress("Danny",0,1);
     
-    Score.innerHTML = String(score) + "of 4, game: "+progress;
+    Score.innerHTML = String(score) + "of 4, game: "+ progress + " of 8";
    
     version = Number(progress);
 
@@ -105,5 +120,4 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log("DOM fully loaded. Starting version check...");
     CheckVersion();
     RePlaceFood();
-    setInterval(RePlaceFood, 7000);
 });
