@@ -84,41 +84,48 @@ function FoodCheck(){
 
 let fx = 0;
 let fy=0;
-function RePlaceFood(){
-    
-    const food = document.getElementById('food');
-    food.style.opacity = "1";
-    fx=Math.floor(Math.random() * (80)+10);
+let Answer = [1,2,3];
+function PlaceFood(){
+    for (let i=1; i<=5; i++){
 
-    fy=Math.floor(Math.random() * (80 )+10);
-    food.style.top = String(fy)+"%";
-    food.style.left = String(fx)+"%";
-    
+
+    const food = document.getElementById(`food${i}`);
+    food.style.opacity = "0";
+    const a=Math.floor(Math.random() * (80)+10);;
+    const b=Math.floor(Math.random() * (80 )+10);
+
+    if(i == Answer[version-1]){
+    fx=a;
+    fy=b;
+    }
+
+    food.style.top = String(b)+"%";
+    food.style.left = String(a)+"%";
+
     setTimeout(() => {
-        if (version<=4){
-        food.style.opacity = String(1.0-version/4.0);
-        }else{
-           food.style.opacity = String(1.0-(version-4)/4.0); 
-        }
         
-    }, 2000);
+        food.style.opacity = "1";
+
+
+
+        
+    }, 500 + 500*i);
+}
+    
     
 
 
 }
 let version = 1;
-let score =0;
+
 async function CheckVersion(){
     const Score = document.getElementById('Score');
  
-    const [progress, sha, gameData] = await pullProgress("Danny",0,1);
+    const [progress, sha, gameData] = await pullProgress("Danny",0,2);
     
-    Score.innerHTML = String(score) + "of 4, game: "+ progress + " of 8";
-   
+
     version = Number(progress);
-    if(version>=5){
-                setInterval(RePlaceFood, 7000);
-        }
+    Score.innerHTML = String(version) + "of 8";
 
     
 }
@@ -129,6 +136,7 @@ async function CheckVersion(){
 window.addEventListener('DOMContentLoaded', () => {
     console.log("DOM fully loaded. Starting version check...");
     CheckVersion();
-    RePlaceFood();
+    PlaceFood()
+
     
 });

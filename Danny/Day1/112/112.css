@@ -1,0 +1,61 @@
+* {
+    background-color: rgb(52, 113, 255);
+}
+
+#playBox {
+    width: 100vw;  /* Or 100% of the screen */
+    height: 100vh;
+
+    position: relative; /* This is the anchor for the circle */
+
+
+}
+
+#player {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(202, 170, 10);
+    border-radius: 50%; /* Makes the square a circle */
+    position: absolute; /* Allows it to move anywhere inside the container */
+    
+    /* This ensures the center of the circle is what aligns with the % */
+    transform: translate(-50%, -50%); 
+    
+    /* Starting position */
+    left: 50%; 
+    top: 50%;
+    
+    transition: all .05s ease; /* Makes the movement look smooth, not jumpy */
+}
+.food {
+     transition: all 1s ease;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the square a circle */
+    border-style: double;
+    border-width: 10px;
+    position: absolute; /* Allows it to move anywhere inside the container */
+    
+    /* This ensures the center of the circle is what aligns with the % */
+    transform: translate(-50%, -50%); 
+    
+    /* Starting position */
+  
+   
+    
+}
+#food1{
+    background-color: red;
+}
+#food2{
+    background-color: rgb(7, 241, 46);
+}
+#food3{
+    background-color: rgb(81, 0, 255);
+}
+#food4{
+    background-color: rgb(170, 0, 255);
+}
+#food5{
+    background-color: rgb(255, 255, 255);
+}
