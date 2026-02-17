@@ -127,3 +127,5 @@ navBar.style.color = "black";
 
 
 addNavBarFormating()
+
+
