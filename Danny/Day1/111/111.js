@@ -48,9 +48,14 @@ function moveX(X){
 }
 function FoodCheck(){
     const food = document.getElementById('food');
-    if ((x > fx-1) && (x < fx+1) && (y > fy-1)&&(y < fy+1)){
-
+    if ((x > fx-version) && (x < fx+version) && (y > fy-version)&&(y < fy+version)){
+food.style.opacity = "1";
 food.style.borderColor = "green";
+const Score = document.getElementById('Score');
+Score.innerHTML = String(5) + " of 4, game: "+progress;
+RePlaceFood();
+score+=1;
+
     }else{
         food.style.borderColor = "black";
     }
@@ -59,9 +64,10 @@ food.style.borderColor = "green";
 
 let fx = 0;
 let fy=0;
-async function RePlaceFood(){
+function RePlaceFood(){
     
     const food = document.getElementById('food');
+    food.style.opacity = "1";
     fx=Math.floor(Math.random() * (100));
 
     fy=Math.floor(Math.random() * (100 ));
@@ -69,36 +75,35 @@ async function RePlaceFood(){
     food.style.left = String(fx)+"%";
     if (version == 2){
     setTimeout(() => {
-        food.style.display = "none";
+        food.style.opacity = "0.5";
         
     }, 2000);
+    
     
 }
 
 
 }
 let version = 1;
-
+let score =0;
 async function CheckVersion(){
     const Score = document.getElementById('Score');
-    // Score.style.innerHTML = 2;
+ 
     const [progress, sha, gameData] = await pullProgress("Danny",0,1);
     
-    //Score.style.innerHTML = progress;
-    window.location.href = `11${progress}/11${progress}.htm`;
-    //  version = Number(progress);
+    Score.innerHTML = String(score) + "of 4, game: "+progress;
+   
+    version = Number(progress);
+
     
 }
 
 
-async function Brother1_1(){
-    const [progress, sha, gameData] = await pullProgress("Danny",0,0);
-
-    window.location.href = `11${progress}/11${progress}.htm`;
-}
 
 
-RePlaceFood();
-setInterval(RePlaceFood, 7000);
-
-
+window.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded. Starting version check...");
+    CheckVersion();
+    RePlaceFood();
+    setInterval(RePlaceFood, 7000);
+});
