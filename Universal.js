@@ -9,7 +9,7 @@ const endDate = 22
 
 
 
-const GITHUB_TOKEN="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";
+const GITHUB_TOKEN="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";
  async function pullProgress(Name,Day,Puzzle) {
  
     
