@@ -16,6 +16,9 @@ window.addEventListener('keydown', (event) => {
     if (event.key === "d") {
         moveX(1);
     }
+    if (event.key === "f"){
+        FoodCheck();
+    }
 });
 
 let x = 50;
@@ -31,7 +34,7 @@ function moveY(Y){
     }
     player.style.top = String(y) + "%";
     player.innerHTML =String(y);
-    FoodCheck()
+
 }
 function moveX(X){
     const player = document.getElementById('player');
@@ -44,57 +47,76 @@ function moveX(X){
     }
     player.style.left = String(x) + "%";
     
-    FoodCheck()
-}
-function FoodCheck(){
-    const food = document.getElementById('food');
 
-    if ((x > fx-version) && (x < fx+version/2) && (y > fy-version/2)&&(y < fy+version/2)){
-        const Score = document.getElementById('Score');
+}
+async function FoodCheck(){
+    const food = document.getElementById(`food${order[Answer[version-1]-1]}`);
+   
+    
+    if ((x > fx-2) && (x < fx+2) && (y > fy-2)&&(y < fy+2)){
+        
         food.style.opacity = "1";
         food.style.borderColor = "green";
         
-        score+=1;
-        Score.innerHTML =String(score) + "of 4, game: "+ String(version);
+        
+        Score.innerHTML = String(version) + "of 8";
+        await updateProgress("Danny", 0,2,String(version+1));
+        await CheckVersion()
 
-        RePlaceFood();
+
+        setTimeout(() => {
+        
+        food.style.borderColor = "black";
+        PlaceFood();
 
 
-        if (score == 4){
-            updateProgress("Danny",0,1,version+1);
-            version+=1;
-            score=0;
-            
-            
-        }
-        //update game versions
-        if(version == 5 && score == 0){
-                setInterval(RePlaceFood, 7000);
-            }
-        if(version >= 9){
-                updateProgress("Danny",0,0,2);
-                window.location.href = "../1.htm";
-            }
+
+        
+    }, 500);
+    
+
+    
 
     }else{
         food.style.borderColor = "black";
+        version-=1;
+        if (version<1){
+            version=1;
+        }
+        await updateProgress("Danny", 0,2,String(version));
+        await CheckVersion()
+        
+        PlaceFood();
+
+
     }
 }
 
 
 let fx = 0;
 let fy=0;
-let Answer = [1,2,3];
+let Answer = [1,2,4,5,3,4,2];
+let order = [1,2,3,4,5];
 function PlaceFood(){
-    for (let i=1; i<=5; i++){
+    
+    for (let i = order.length - 1; i > 0; i--) {
+        // Pick a random index from 0 to i
+        const j = Math.floor(Math.random() * (i + 1));
+        
+        // Swap elements array[i] and array[j]
+        [order[i], order[j]] = [order[j], order[i]];
+    }
+    
+    
+    for (let i=0; i<5; i++){
 
 
-    const food = document.getElementById(`food${i}`);
+    const food = document.getElementById(`food${order[i]}`);
     food.style.opacity = "0";
     const a=Math.floor(Math.random() * (80)+10);;
     const b=Math.floor(Math.random() * (80 )+10);
 
-    if(i == Answer[version-1]){
+    if(i+1 == Answer[version-1]){
     fx=a;
     fy=b;
     }
